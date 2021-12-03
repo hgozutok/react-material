@@ -8,10 +8,10 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 function ToggleTheme() {
   const { toggleDark } = useContext(MainContext);
-  const { settoggleDark } = useContext(MainContext);
+  const { setToggleDark } = useContext(MainContext);
 
   const handleModeChange = () => {
-    settoggleDark(!toggleDark);
+    setToggleDark(!toggleDark);
   };
 
   return (
