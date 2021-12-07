@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const pages = [{id:1, name:'Home',path:"/"},
-{id:2, name:'Orders',path:"#"},
+{id:2, name:'New Order',path:"/order/new"},
 {id:3, name:'Customers',path:"#"},
 {id:4, name:'Form',path:'/form'}
 ];
