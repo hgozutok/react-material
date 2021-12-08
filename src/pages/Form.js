@@ -2,6 +2,8 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 import Button from '@mui/material/Button';
+import Reducerex from "../components/context/Reducerex";
+import RefEx from "../components/context/RefEx";
 
 function Form() {
   const validate= (
@@ -29,7 +31,8 @@ function Form() {
           helperText="Incorrect entry."
         />
         <Button variant="contained">Contained</Button>
-
+<Reducerex/>
+<RefEx/>
       </div>
     </>
   );
