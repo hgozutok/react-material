@@ -73,7 +73,7 @@ function SingleProduct(product) {
  
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {productData.description}
+            {productData.description.substring(0, 100)}
           </Typography>
         </CardContent>
       </Card>
