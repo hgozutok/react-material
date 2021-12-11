@@ -19,7 +19,8 @@ import { useNavigate } from "react-router-dom"
 const pages = [{id:1, name:'Home',path:"/"},
 {id:2, name:'New Order',path:"/order/new"},
 {id:3, name:'Customers',path:"#"},
-{id:4, name:'Form',path:'/form'}
+{id:4, name:'Form',path:'/form'},
+{id:5, name:'Products',path:'/products/all'},
 ];
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];

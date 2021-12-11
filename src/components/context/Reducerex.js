@@ -1,4 +1,6 @@
-import { React, useReducer } from "react";
+
+import { React, useReducer ,useState} from "react";
+import { forwardRef, useRef, useImperativeHandle } from "react";
 
 const initialState = { count: 0, lover: "Spring&Hugo" };
 
@@ -24,25 +26,49 @@ function reducer(state, action) {
   }
 }
 
-function Reducerex({ initialCount }) {
+
+function Reducerex(initialCount) {
   const [state, dispatch] = useReducer(reducer, initialCount, init);
 
-  return (
+  const [durum, setDurum] = useState("hugo")
+
+  const Increment =  ()=>{
+
+     // console.log(Increment)
+   return dispatch({ type: "increment", payload: initialCount })}
+    
+  
+    const   Decrement = () => {
+        
+       dispatch({ type: "decrement", payload: initialCount })
+    }
+    
+  
+
+  return [ Increment, Decrement, setDurum,
+    durum,dispatch,
+    (
+   
+
     <div>
-      Count: {state.count} Count: {state.lover}
+      Count: {state.count} lv: {state.lover}
       <button
         onClick={() => dispatch({ type: "reset", payload: initialCount })}
       >
         Reset
       </button>
-      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
-      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={Decrement}>-</button>
+      <button onClick={Increment}>+</button>
       <button onClick={() => dispatch({ type: "Spring&Hugo" })}>
         {state.lover}
       </button>
-      <button onClick={() => dispatch({ type: "P&H" })}>ph</button>
+      <button onClick={() => dispatch({ type: "P&H" })}>ph</button> 
+     
     </div>
-  );
+
+  )];
+  
+
 }
 
 export default Reducerex;
