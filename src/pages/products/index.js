@@ -27,7 +27,7 @@ function Index() {
 
   return (
     <>
-      <Typography variant="h1">Products</Typography>
+      <Typography variant="h2">Products</Typography>
 
       {loading ? (
         <div>Loading...</div>

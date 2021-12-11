@@ -3,8 +3,8 @@ import axios from 'axios';
 
 export async  function getProducts() {
     return (
-       await axios.get(process.env.REACT_APP_PRODUCTS_API_URL,{
-        //     await axios.get('https://fakestoreapi.com/products/',{
+     //  await axios.get(process.env.REACT_APP_PRODUCTS_API_URL,{
+             await axios.get('https://fakestoreapi.com/products/',{
 
             params: {
               _limit: 10
