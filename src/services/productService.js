@@ -22,7 +22,26 @@ export async  function getProducts() {
     )
 }
 
+export async  function getProductByID(id) {
+    return (
+     //  await axios.get(process.env.REACT_APP_PRODUCTS_API_URL,{
+             await axios.get("https://fakestoreapi.com/products/"+id,{
 
+            params: {
+              _limit: 10
+             }
+          }).then(
+               (data)=>{return data;
+                console.log(data)
+      }
+           ).catch(
+                {error: 'error occurred'}
+            
+                
+           )
+
+    )
+}
 
  function productService() {
     return (
@@ -34,5 +53,8 @@ export async  function getProducts() {
 
 export default {
     productService,
-    getProducts
+    getProducts,
+    getProductByID
 }
+
+  

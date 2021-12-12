@@ -45,7 +45,7 @@ function SingleProduct(product) {
         width: 350,
         height: 450,
         backgroundImage: `url(${productData.image})`,
-        backgroundSize: "100% 100%" /* <------ */,
+        backgroundSize: "75% 75%" /* <------ */,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         justifyContent: "end",
@@ -66,10 +66,10 @@ function SingleProduct(product) {
           alt="product"
         /> 
         </Card> */}
-      <Card hidden={!show} sx={{ backgroundColor: "secondary", opacity: 0.6 }}>
+      <Card hidden={!show} sx={{ backgroundColor: "secondary", opacity: 0.9 }}>
         <CardContent >
           <Typography gutterBottom variant="h5" component="div">
-          <Link href={`products/product/${productData.id}`}>{productData.title}</Link>
+          <Link href={`/products/product/${productData.id}`}>{productData.title}</Link>
  
           </Typography>
           <Typography variant="body2" color="text.secondary">

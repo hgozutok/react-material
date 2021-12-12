@@ -5,7 +5,7 @@ import productService from "../../services/productService";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
+import * as texts from "../../const/productConst";
 
 function Index() {
   const [products, setProducts] = useState([]);
@@ -27,10 +27,10 @@ function Index() {
 
   return (
     <>
-      <Typography variant="h2">Products</Typography>
+      <Typography variant="h2">{texts.PRODUCTS}</Typography>
 
       {loading ? (
-        <div>Loading...</div>
+        <div>{texts.LOADING}</div>
       ) : (
         <div>
 

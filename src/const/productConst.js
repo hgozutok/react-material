@@ -13,3 +13,12 @@ export const CLEAR_WISHLIST = 'CLEAR WISHLIST';
 
 
 export const SHARE = 'SHARE';
+
+export const CURRENCY = 'CURRENCY';
+export const CURRENCY_SYMBOL = '£';
+
+export const LOADING = 'Loading...';
+export const PRODUCT_DETAIL = 'Product Details';
+export const PRODUCTS = 'Products';
+export const PRODUCT_LIST = 'Product List';
+export const PRODUCT_DESCRIPTION = 'Product Description';
