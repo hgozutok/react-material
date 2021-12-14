@@ -22,3 +22,5 @@ export const PRODUCT_DETAIL = 'Product Details';
 export const PRODUCTS = 'Products';
 export const PRODUCT_LIST = 'Product List';
 export const PRODUCT_DESCRIPTION = 'Product Description';
+export const RATING = 'Rating';
+

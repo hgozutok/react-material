@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState,useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,11 +11,45 @@ import BasicModal from "../layout/basicModal";
 import { forwardRef, useRef, useImperativeHandle } from "react";
 import Link from '@mui/material/Link';
 
-function SingleProduct(product) {
-  const productData = product.product;
-  const childRef = useRef();
+import { MainContext } from "../context/userContext";
+import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from "react-router-dom"
 
-  const [show, setShow] = React.useState(false);
+
+
+function SingleProduct(product) {
+
+     const { cart } = useContext(MainContext);
+  const { addCart } = useContext(MainContext);
+  const childRef = useRef();
+  const productData = product.product;
+
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
+  const addToCart = () => {
+    
+    // localStorage.setItem("cart",[...cart,{
+    //     productId:productData.id,quantity:1,
+    // }]);
+    var item =cart.find(item=>item.productId===productData.id);
+    if(item){ 
+        item.quantity++;
+    }else{
+  
+    addCart([...cart,{
+        productId:productData.id,
+        productTitle:productData.title,
+        productPrice:productData.price,
+        productImage:productData.image,
+        quantity:1,
+    }]
+    );
+  }
+    console.log(cart)
+  };
+
+
   // const {handleOpen,open, setOpen}=BasicModal();
 
   const openPopup = () => {
@@ -39,13 +73,21 @@ function SingleProduct(product) {
   const mouseLeave = () => {
     setShow(false);
   };
+
+  const setNav=(obj)=>{
+    window.location.reload(false);
+    navigate(obj.path);
+
+      };
+
   return (
-    <Card
+    <Card 
+    key={productData.id}
       sx={{
         width: 350,
         height: 450,
         backgroundImage: `url(${productData.image})`,
-        backgroundSize: "75% 75%" /* <------ */,
+        backgroundSize: "100% 100%" ,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         justifyContent: "end",
@@ -58,19 +100,13 @@ function SingleProduct(product) {
       onMouseEnter={mouseMove}
       onMouseLeave={mouseLeave}
     >
-      {/* <Card sx={{ maxWidth: 325 ,maxHeight :350 }}>
-        <CardMedia
-          component="img"
-        
-          image={productData.image}
-          alt="product"
-        /> 
-        </Card> */}
-      <Card hidden={!show} sx={{ backgroundColor: "secondary", opacity: 0.9 }}>
-        <CardContent >
+
+      <Card  hidden={!show} sx={{ backgroundColor: "secondary", opacity: 0.9 }}>
+        <CardContent  >
           <Typography gutterBottom variant="h5" component="div">
+
           <Link href={`/products/product/${productData.id}`}>{productData.title}</Link>
- 
+          {/* <Button onClick={setNav} href={`/products/product/${productData.id}`}>{productData.title}</Button> */}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {productData.description.substring(0, 100)}
@@ -78,6 +114,7 @@ function SingleProduct(product) {
         </CardContent>
       </Card>
       <Card
+      
         sx={{
           backgroundColor: "primary",
           display: "flex",
@@ -93,12 +130,12 @@ function SingleProduct(product) {
           <Button onClick={openPopup} size="small">
             {texts.SHARE}
           </Button>
-          <Button variant="contained" size="small">
+          <Button variant="contained" size="small" onClick={addToCart}>
             {texts.ADD_TO_CART}
           </Button>
         </CardActions>
       </Card>
-      <BasicModal title="twitle" ref={childRef} />
+      <BasicModal key={productData.id}  ref={childRef} />
     </Card>
   );
 }

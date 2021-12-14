@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { ToggleTheme } from '../theme/ToggleTheme';
 import { useNavigate } from "react-router-dom"
+import CartItems from './CartItems';
 
 
 
@@ -124,6 +125,10 @@ const ResponsiveAppBar = () => {
                 {page.name}
               </Button>
             ))}
+          </Box>
+          <Box sx={{ flexGrow: 0, margin:{ xs: 1, md: 1 }, display: { xs: 'flex', md: 'flex' } }}>
+                 <CartItems/>
+            
           </Box>
           <Box sx={{ flexGrow: 0, margin:{ xs: 1, md: 1 }, display: { xs: 'flex', md: 'flex' } }}>
                  <ToggleTheme/>
