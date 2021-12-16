@@ -62,7 +62,7 @@ function SingleProduct(product) {
   const openSnack = () => {
     dispatch({
       type: "ADD_TO_CART",
-      payload: { ...product, quantity: 1 },
+      payload: { ...productData, quantity: 1 },
     });
     childWRef.current.handleClick(snackbar);
   };
