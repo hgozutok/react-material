@@ -1,50 +1,47 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
-import * as texts from '../../const/productConst'
+import * as texts from "../../const/productConst";
 import { forwardRef, useRef, useImperativeHandle } from "react";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
- const BasicModal=forwardRef((props, ref) => {
-
+const BasicModal = forwardRef((props, ref) => {
   const [open, setOpen] = React.useState(false);
   const [text, setText] = React.useState(null);
-    const [title, setTitle] = React.useState(null);
+  const [title, setTitle] = React.useState(null);
 
-  const handleOpen = (titletoSet,texttoSet) =>{
+  const handleOpen = (titletoSet, texttoSet) => {
     setText(texttoSet);
     setTitle(titletoSet);
-      setOpen(true);}
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
-//  setOpen(show);
+  //  setOpen(show);
 
-useImperativeHandle(
-    ref,
-    () => ({
-        handleOpen,handleClose
-    }),
-)
+  useImperativeHandle(ref, () => ({
+    handleOpen,
+    handleClose,
+  }));
 
-
-
-
-  return [handleOpen,open, setOpen,
-    (
+  return [
+    handleOpen,
+    open,
+    setOpen,
     <div>
       {/* <Button onClick={handleOpen}>{texts.SHARE}</Button> */}
       <Modal
@@ -55,17 +52,18 @@ useImperativeHandle(
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-          {title}
+            {title}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {text}
+            {text}
           </Typography>
-          <Button variant='contained' onClick={(handleClose)}>{texts.SHARE}</Button>
+          <Button variant="contained" onClick={handleClose}>
+            {texts.SHARE}
+          </Button>
         </Box>
       </Modal>
-    </div>
-  ),
-];
+    </div>,
+  ];
 });
 
 export default BasicModal;

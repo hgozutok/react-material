@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useReducer} from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { backdropClasses, Card, Rating, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { getProductByID } from "../../services/productService";
@@ -12,32 +12,53 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import CartReducer from "../../components/recucers/cartReducer";
+import SnackBarMenu from "../../components/layout/SnackBarMenu";
+import { forwardRef, useRef, useImperativeHandle } from "react";
 
 function Product() {
-  const [state, dispatch] = useReducer(CartReducer);
-  const [product, setProduct] = useState({});
+  const childWRef = useRef();
+  const [state, dispatch] = useReducer(CartReducer); //cart actions
+  const [product, setProduct] = useState({}); //active product
 
-  const [loading, setLoading] = useState(false);
-  const [cartItem, setCartItem] = useState(1);
-  const [rate, setRate] = useState(0);
-  let { id } = useParams();
+  const [loading, setLoading] = useState(false); //loading state
+  const [cartItem, setCartItem] = useState(1); //cart item state
+  const [rate, setRate] = useState(0); //rate state
+  let { id } = useParams(); //get product id from url
+
+  const [snackbar, setSnackbar] = useState({
+    vertical: "top",
+    horizontal: "right",
+    message: "Product added to cart",
+    actionTitle: "View Cart",
+    pageUrl: "/cart",
+  }); //snackbar message
+
+  const openSnack = () => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: { ...product, quantity: cartItem },
+    });
+    childWRef.current.handleClick(snackbar);
+  };
 
   const fetchProducts = async () => {
     setLoading(true);
     getProductByID(id).then((res) => {
+      //get product by id
       setProduct(res.data);
       setRate(res.data.rating.rate);
-     // console.log(res.data);
+      // console.log(res.data);
       setLoading(false);
     });
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts(); //fetch product on component mount
+  }, [product]);
 
   return (
     <>
+      <SnackBarMenu ref={childWRef} />
       <Typography variant="h2">{texts.PRODUCT_DETAIL}</Typography>
       {loading ? (
         <div>{texts.LOADING}</div>
@@ -57,27 +78,6 @@ function Product() {
                       borderRadius: "5%",
                     }}
                   ></Card>
-                  {/*  <img
-                  src={product.image}
-                  width={200}
-                  height={300}
-                  
-                  borderRadius={'50%'}
-                  backgroundSize={"75% 75%"}
-                  alt="product"
-                />
-                width: 350,
-             height: 450,
-            backgroundImage: `url(${product.image})`,
-            backgroundSize: "75% 75%" ,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center center",
-            justifyContent: "end",
-            borderRadius: "5%",
-             display: "flex",
-             alignItems: "flex-end",
-             flexWrap: "wrap",
-             alignContent: "flex-end", */}
                   <Grid item xs={8}>
                     {/* <Card sx={{ padding:5, alignItems:"stretch",  alignContent:"stretch"}} > */}
                     <Typography variant="h4">{product.title}</Typography>
@@ -85,7 +85,13 @@ function Product() {
                       variant="contained"
                       aria-label="outlined primary button group"
                     >
-                      <Button onClick={() => setCartItem(cartItem - 1)}>
+                      <Button
+                        onClick={() =>
+                          cartItem <= 1
+                            ? setCartItem(1)
+                            : setCartItem(cartItem - 1)
+                        }
+                      >
                         -
                       </Button>
                       <Button disabled>{cartItem}</Button>
@@ -98,11 +104,9 @@ function Product() {
                       {texts.CURRENCY_SYMBOL} {product.price}
                     </Typography>
 
-                    <Button variant="contained"
-                    onClick={() =>
-                      dispatch({ type: "ADD_TO_CART", payload: {...product,quantity:cartItem} })
-                    }
-                    >{texts.ADD_TO_CART}</Button>
+                    <Button variant="contained" onClick={openSnack}>
+                      {texts.ADD_TO_CART}
+                    </Button>
                     <Typography variant="h4">{texts.RATING}</Typography>
 
                     <Rating
